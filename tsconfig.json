@@ -1,5 +1,13 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
+	"compilerOptions": {
+		"types": [
+			"@types/node",
+			"@nuxt/vue-app",
+			"@nuxtjs/vuetify",
+			"@nuxtjs/axios"
+		]
+	},
   "files": [],
   "references": [
     {
