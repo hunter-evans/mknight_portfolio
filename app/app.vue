@@ -1,16 +1,60 @@
-<script setup lang="ts">
+<script setup>
+	// high-level imports
 	import { ref, onMounted } from 'vue';
-	import { mdiBookMusicOutline, mdiInformationOutline } from '@mdi/js';
+	import emailjs from '@emailjs/browser';
+
+	// data imports
 	import projectArr from 'data/projects.json'
 
-	const title = ref("D. M. Knight: Music Technologist");
-	const aboutTitle = ref("About Me");
 	const ytBaseURL = "https://www.youtube.com/embed/";
 
+	// dialog consts
+	const emailDialog = ref(false);
+	const successDialog = ref(false);
+	const failureDialog = ref(false);
+	const failureMessage = ref('');
+	const form = ref(false);
+	const loading = ref(false);
+	const userEmail = ref('');
+	const userSubject = ref('');
+	const userMessage = ref('');
+
+	// dialog rules/methods
+	function required(v) {
+		return !!v || 'Field is required.';
+	}
+
+	function email(v) {
+		return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'Must be a valid e-mail address.';
+	}
+
+	function onSubmit() {
+		if(!form.value) return
+		loading.value = true;
+		// add email logic.
+		const templateParams = {
+			userSubject: userSubject.value,
+			userEmail: userEmail.value,
+			userMessage: userMessage.value,
+		};
+		emailjs.send("service_3hhr3e9", "template_7fpyzb9", templateParams)
+			.then(() => {
+				loading.value = false;
+				emailDialog.value = false;
+				successDialog.value = true;
+			}, (error) => {
+				loading.value = false;
+				emailDialog.value = false;
+				failureDialog.value = true;
+				failureMessage.value = error;
+			});
+	}
+
+	// project data/methods
 	let projectList = ref([]);
 	let projectCounter = ref(0);
 
-	async function generateYouTubeURLs(id: string) {
+	async function generateYouTubeURLs(id) {
 		const key = useRuntimeConfig().public.GOOGLE_API_KEY;
 		const url = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id}&key=${key}`;
 		try {
@@ -25,7 +69,20 @@
 			projectList.value.push(newProject);
 		}
 		catch(error) {
-			console.log("Error fetching playlist:", error);
+			console.log(`Error fetching YouTube playlist ${id}:`, error);
+		}
+	}
+
+	async function generateSpotifyURLs(id) {
+		const url = ``;
+		try {
+			const response = await $fetch(url, {
+				method: 'GET'
+			});
+			let newProject = [];
+		}
+		catch(error) {
+			console.log(`Error fetching Spotify playlist ${id}:`, error);
 		}
 	}
 
@@ -34,9 +91,25 @@
 			if(project.platform === "YouTube") {
 				generateYouTubeURLs(project.playlistID);
 			}
+			else if(project.platform === "Spotify") {
+				generateSpotifyURLs(project.playlistID);
+			}
 		}
-		console.log(projectCounter);
+
+		emailjs.init({
+			publicKey: useRuntimeConfig().public.EMAILJS_PUBLIC_KEY,
+			privateKey: useRuntimeConfig().public.EMAILJS_PRIVATE_KEY,
+			blockHeadless: true,
+			limitRate: {
+				id: 'app',
+				throttle: 10000
+			}
+		});
 	});
+
+	// meta consts/methods
+	const title = ref("D. M. Knight: Music Technologist");
+	const aboutTitle = ref("About Me");
 
 	useSeoMeta({
 		creator: "Hunter Evans",
@@ -51,6 +124,92 @@
 
 <template>
   <div>
+		<v-dialog
+			v-model="emailDialog"
+			width="auto"
+		>
+			<v-form
+				v-model="form"
+				@submit.prevent="onSubmit"
+			>
+				<v-card
+					density="comfortable"
+				>
+					<v-card-item>
+						<v-card-title>Send Email</v-card-title>
+						<v-card-subtitle>Fill out the form, and I'll respond back soon!</v-card-subtitle>
+					</v-card-item>
+					<v-card-text>
+						<v-text-field 
+							v-model="userEmail"
+							clearable
+							label="Email"
+							type="email"
+							placeholder="Enter your email address."
+							:rules="[required, email]"
+						/>
+						<v-text-field
+							v-model="userSubject"
+							clearable
+							label="Subject"
+							type="input"
+							placeholder="Enter your subject."
+							:rules="[required]"
+						/>
+						<v-textarea
+							v-model="userMessage"
+							clearable
+							label="Message"
+							placeholder="Enter your message."
+							auto-grow
+							:rules="[required]"
+						/>
+					</v-card-text>
+					<v-card-actions>
+						<v-btn
+							@click="emailDialog=false"
+						>
+							Close
+						</v-btn>
+						<v-btn
+							:disabled="!form"
+							:loading="loading"
+							type="submit"
+						>
+							Send
+						</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-form>
+		</v-dialog>
+		<v-dialog
+			v-model="successDialog"
+			width="auto"
+		>
+			<v-card>
+				<v-card-item>
+					<v-card-title>Success</v-card-title>
+				</v-card-item>
+				<v-card-text>Email successfully sent. Please allow a few days for a response.</v-card-text>
+				<v-card-actions>
+					<v-btn @click="successDialog=false">Close</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
+		<v-dialog
+			v-model="failureDialog"
+			width="auto"
+		>
+			<v-card>
+				<v-card-item>
+					<v-card-title>Error</v-card-title>
+				</v-card-item>
+				<v-card-text>Error while sending email. Please try again. {{ failureMessage }}</v-card-text>
+				<v-card-actions>
+					<v-btn @click="failureDialog=false">Close</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
 		<v-layout>
 			<v-navigation-drawer
 				expand-on-hover
@@ -103,6 +262,26 @@
 									<v-card-text>
 										D. Mark Knight, Jr. is an audio engineer based in the Washington, D.C. metro region with a background in audio editing, engineering, and live sound recording. He is an audio editor and concert producer for the Washington Metropolitan Gamer Symphony Orchestra and it's associated small ensembles. In his spare time, Mark is an avid woodwinds musician, playing flute, clarinet, tenor saxophone, and bassoon.
 									</v-card-text>
+									<v-card-actions>
+										<v-speed-dial
+											location="right center"
+											transition="slide-y-reverse-transition"
+										>
+											<template v-slot:activator="{ props: activatorProps }">
+												<v-btn v-bind="activatorProps">Contact</v-btn>
+											</template>
+											<v-btn
+												key="1"
+												icon="mdi-email"
+												@click="emailDialog = true"
+											/>
+											<v-btn 
+												key="2"
+												icon="mdi-linkedin"
+												href="https://www.linkedin.com/in/mark-knight-683442129/"
+											/>
+										</v-speed-dial>
+									</v-card-actions>
 								</v-card>
 							</v-col>
 						</v-row>
