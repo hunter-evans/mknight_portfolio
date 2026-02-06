@@ -1,16 +1,28 @@
 <script setup lang="ts">
 	import { ref, onMounted } from 'vue';
 	import { mdiBookMusicOutline, mdiInformationOutline } from '@mdi/js';
-	import projects from 'data/projects.json'
+	import projectArr from 'data/projects.json'
 
 	const title = ref("D. M. Knight: Music Technologist");
 	const aboutTitle = ref("About Me");
+	const ytBaseURL = "https://www.youtube.com/embed/";
 
-	function generateYouTubeURLs(id: string) {
+	let projectList = ref([]);
+	let projectCounter = ref(0);
+
+	async function generateYouTubeURLs(id: string) {
 		const key = useRuntimeConfig().public.GOOGLE_API_KEY;
 		const url = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id}&key=${key}`;
 		try {
-			
+			const response = await $fetch(url, {
+				method: 'GET'
+			});
+			let newProject = [];
+			for(const video of response.items) {
+				newProject.push(video.snippet.resourceId.videoId);
+			}
+			projectCounter.value += newProject.length;
+			projectList.value.push(newProject);
 		}
 		catch(error) {
 			console.log("Error fetching playlist:", error);
@@ -18,17 +30,18 @@
 	}
 
 	onMounted(() => {
-		for(let project of projects) {
+		for(const project of projectArr) {
 			if(project.platform === "YouTube") {
 				generateYouTubeURLs(project.playlistID);
 			}
 		}
+		console.log(projectCounter);
 	});
 
 	useSeoMeta({
 		creator: "Hunter Evans",
-		description: () => "Browse Mark Knight's ${} audio projects and consider hiring him for your next audio engineering needs.",
-		ogDescription: () => "Browse Mark Knight's ${} audio projects and consider hiring him for your next audio engineering needs.",
+		description: () => `Browse Mark Knight's ${projectCounter} audio projects and consider hiring him for your next audio engineering needs in the Washington, D.C. metro area.`,
+		ogDescription: () => `Browse Mark Knight's ${projectCounter} audio projects and consider hiring him for your next audio engineering needs in the Washington, D.C. metro area.`,
 		robots: 'index, follow',
 		title: () => title,
 		ogTitle: () => title,
@@ -46,14 +59,14 @@
 			>
 				<v-list>
 					<v-list-item 
+						href="#projects"
 						prepend-icon="mdi-book-music-outline" 
 						title="Projects"
-						value="projects"
 					/>
 					<v-list-item
+						href="#about"
 						prepend-icon="mdi-information-outline"
 						:title="aboutTitle"
-						value="about"
 					/>
 				</v-list>
 			</v-navigation-drawer>
@@ -66,11 +79,22 @@
 								<h3 class="text-h3">Hi, I'm Mark! Check out some of the projects I've been working on recently.</h3>
 							</v-col>
 						</v-row>
-						<v-row v-for="project in projects">
+						<v-row id="projects" v-for="project in projectList">
+							<v-carousel show-arrows="hover">
+								<v-carousel-item v-for="video in project">
+									<iframe
+										:src="ytBaseURL.concat(video)"
+										height="100%"
+										width="100%"
+										allowfullscreen
+										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+									/>
+								</v-carousel-item>
+							</v-carousel>
 						</v-row>
 						<v-row>
 							<v-col cols="12">
-								<v-card>
+								<v-card id="about">
 									<v-card-item>
 										<v-card-title>
 											{{ aboutTitle }}

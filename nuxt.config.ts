@@ -25,7 +25,7 @@ export default defineNuxtConfig({
 	},
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/hints', '@nuxtjs/axios', 'vuetify-nuxt-module'],
+  modules: ['@nuxt/hints', 'vuetify-nuxt-module'],
 	runtimeConfig: {
 		public: {
 			GOOGLE_API_KEY: process.env.GOOGLE_API_KEY
