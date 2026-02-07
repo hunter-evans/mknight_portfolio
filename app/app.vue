@@ -7,11 +7,13 @@
 	import projectArr from 'data/projects.json'
 
 	const ytBaseURL = "https://www.youtube.com/embed/";
+	const spotifyBaseURL = "https://open.spotify.com/embed/track/";
+	const spotifyPostURL = "?utm_source=generator&theme=0";
 
 	// dialog consts
 	const emailDialog = ref(false);
-	const successDialog = ref(false);
-	const failureDialog = ref(false);
+	const successSnackbar = ref(false);
+	const failureAlert = ref(false);
 	const failureMessage = ref('');
 	const form = ref(false);
 	const loading = ref(false);
@@ -41,17 +43,18 @@
 			.then(() => {
 				loading.value = false;
 				emailDialog.value = false;
-				successDialog.value = true;
+				successSnackbar.value = true;
 			}, (error) => {
 				loading.value = false;
 				emailDialog.value = false;
-				failureDialog.value = true;
+				failureAlert.value = true;
 				failureMessage.value = error;
 			});
 	}
 
 	// project data/methods
-	let projectList = ref([]);
+	let ytProjectList = ref([]);
+	let spotifyProjectList = ref([]);
 	let projectCounter = ref(0);
 
 	async function generateYouTubeURLs(id) {
@@ -66,33 +69,51 @@
 				newProject.push(video.snippet.resourceId.videoId);
 			}
 			projectCounter.value += newProject.length;
-			projectList.value.push(newProject);
+			ytProjectList.value.push(newProject);
 		}
 		catch(error) {
 			console.log(`Error fetching YouTube playlist ${id}:`, error);
 		}
 	}
 
+	/* TODO: finish method once Spotify API allows new apps
 	async function generateSpotifyURLs(id) {
-		const url = ``;
+		const token = useRuntimeConfig().public.SPOTIFY_TOKEN;
+		const url = `https://api.spotify.com/v1/playlists/${id}/tracks`;
 		try {
 			const response = await $fetch(url, {
 				method: 'GET'
 			});
 			let newProject = [];
+			for(const video of response. ) {
+				newProject.push(video. );
+			}
+			projectCounter.value += newProject.length;
+			spotifyProjectList.value.push(newProject);
 		}
 		catch(error) {
 			console.log(`Error fetching Spotify playlist ${id}:`, error);
 		}
 	}
+	*/
 
 	onMounted(() => {
 		for(const project of projectArr) {
 			if(project.platform === "YouTube") {
 				generateYouTubeURLs(project.playlistID);
 			}
+			/* TODO: eliminate alt method *see above note
 			else if(project.platform === "Spotify") {
 				generateSpotifyURLs(project.playlistID);
+			}
+			*/
+			else if(project.platform === "altSpotify") {
+				let newProject = [];
+				for(const track of project.trackIDs) {
+					newProject.push(track);
+				}
+				projectCounter.value += newProject.length;
+				spotifyProjectList.value.push(newProject);
 			}
 		}
 
@@ -182,39 +203,12 @@
 				</v-card>
 			</v-form>
 		</v-dialog>
-		<v-dialog
-			v-model="successDialog"
-			width="auto"
-		>
-			<v-card>
-				<v-card-item>
-					<v-card-title>Success</v-card-title>
-				</v-card-item>
-				<v-card-text>Email successfully sent. Please allow a few days for a response.</v-card-text>
-				<v-card-actions>
-					<v-btn @click="successDialog=false">Close</v-btn>
-				</v-card-actions>
-			</v-card>
-		</v-dialog>
-		<v-dialog
-			v-model="failureDialog"
-			width="auto"
-		>
-			<v-card>
-				<v-card-item>
-					<v-card-title>Error</v-card-title>
-				</v-card-item>
-				<v-card-text>Error while sending email. Please try again. {{ failureMessage }}</v-card-text>
-				<v-card-actions>
-					<v-btn @click="failureDialog=false">Close</v-btn>
-				</v-card-actions>
-			</v-card>
-		</v-dialog>
 		<v-layout>
 			<v-navigation-drawer
 				expand-on-hover
 				permanent
 				rail
+				:location="$vuetify.display.mobile ? 'bottom' : undefined"
 			>
 				<v-list>
 					<v-list-item 
@@ -230,64 +224,125 @@
 				</v-list>
 			</v-navigation-drawer>
 			<v-main class="d-flex align-center justify-center">
-				<v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
-					<v-container class="fill-height">
-						<v-row class="justify-center align-center flex-md-row">
-							<v-col col="12">
-								<h1 class="text-h1">{{ title }}</h1>
-								<h3 class="text-h3">Hi, I'm Mark! Check out some of the projects I've been working on recently.</h3>
-							</v-col>
-						</v-row>
-						<v-row id="projects" v-for="project in projectList">
-							<v-carousel show-arrows="hover">
-								<v-carousel-item v-for="video in project">
+				<v-container fluid>
+					<v-row class="justify-center align-center">
+						<v-col cols="12">
+							<v-row>
+								<v-col cols="12">
+									<h2 class="text-h2">{{ title }}</h2>
+									<v-divider 
+										gradient
+										class="border-opacity-75"
+									/>
+								</v-col>
+							</v-row>
+							<v-row>
+								<v-col cols="12">
+									<h4 class="text-h4">Hi, I'm Mark! Check out some of the projects I've been working on recently.</h4>
+								</v-col>
+							</v-row>
+						</v-col>
+					</v-row>
+					<v-row 
+						class="justify-center align-center" 
+						id="projects"
+					>
+						<v-col cols="12" lg="6" v-for="project in ytProjectList">
+							<v-carousel 
+								show-arrows="hover"
+								height="352"
+							>
+								<v-carousel-item v-for="video in project" cover>
 									<iframe
 										:src="ytBaseURL.concat(video)"
 										height="100%"
 										width="100%"
 										allowfullscreen
 										allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-									/>
+									/>	
 								</v-carousel-item>
 							</v-carousel>
-						</v-row>
-						<v-row>
-							<v-col cols="12">
-								<v-card id="about">
-									<v-card-item>
-										<v-card-title>
-											{{ aboutTitle }}
-										</v-card-title>
-									</v-card-item>
-									<v-card-text>
-										D. Mark Knight, Jr. is an audio engineer based in the Washington, D.C. metro region with a background in audio editing, engineering, and live sound recording. He is an audio editor and concert producer for the Washington Metropolitan Gamer Symphony Orchestra and it's associated small ensembles. In his spare time, Mark is an avid woodwinds musician, playing flute, clarinet, tenor saxophone, and bassoon.
-									</v-card-text>
-									<v-card-actions>
-										<v-speed-dial
-											location="right center"
-											transition="slide-y-reverse-transition"
-										>
-											<template v-slot:activator="{ props: activatorProps }">
-												<v-btn v-bind="activatorProps">Contact</v-btn>
-											</template>
-											<v-btn
-												key="1"
-												icon="mdi-email"
-												@click="emailDialog = true"
-											/>
-											<v-btn 
-												key="2"
-												icon="mdi-linkedin"
-												href="https://www.linkedin.com/in/mark-knight-683442129/"
-											/>
-										</v-speed-dial>
-									</v-card-actions>
-								</v-card>
-							</v-col>
-						</v-row>
-					</v-container>
-				</v-parallax>
+						</v-col>
+						<v-col cols="12" lg="6" v-for="project in spotifyProjectList">
+							<v-carousel 
+								show-arrows="hover"
+								height="352"
+							>
+								<v-carousel-item v-for="track in project" cover>
+									<iframe
+										data-testid="embed-iframe"
+										style="border-radius:12px"
+										:src="spotifyBaseURL.concat(track).concat(spotifyPostURL)"
+										height="100%"
+										width="100%"
+										frameBorder="0"
+										allowfullscreen
+										allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+									/>	
+								</v-carousel-item>
+							</v-carousel>
+						</v-col>
+					</v-row>
+					<v-row>
+						<v-col cols="12">
+							<v-card id="about">
+								<v-card-item>
+									<v-card-title>
+										{{ aboutTitle }}
+									</v-card-title>
+								</v-card-item>
+								<v-card-text>
+									D. Mark Knight, Jr. is an audio engineer based in the Washington, D.C. metro region with a background in audio editing, engineering, and live sound recording. He is an audio editor and concert producer for the Washington Metropolitan Gamer Symphony Orchestra and it's associated small ensembles. In his spare time, Mark is an avid woodwinds musician, playing flute, clarinet, tenor saxophone, and bassoon.
+								</v-card-text>
+								<v-card-actions>
+									<v-speed-dial
+										location="right center"
+										transition="slide-y-reverse-transition"
+									>
+										<template v-slot:activator="{ props: activatorProps }">
+											<v-btn v-bind="activatorProps">Contact</v-btn>
+										</template>
+										<v-btn
+											key="1"
+											icon="mdi-email"
+											@click="emailDialog = true"
+										/>
+										<v-btn 
+											key="2"
+											icon="mdi-linkedin"
+											href="https://www.linkedin.com/in/mark-knight-683442129/"
+										/>
+									</v-speed-dial>
+								</v-card-actions>
+							</v-card>
+							<v-snackbar
+								v-model="successSnackbar"
+								timeout="2000"
+							>
+								Email sent successfully!
+							</v-snackbar>
+							<v-alert
+								v-model="failureAlert"
+								closable
+								title="Error"
+								color="error"
+								icon="$error"
+							>
+								Error while sending email. Please try again. {{ failureMessage }}
+							</v-alert>
+						</v-col>
+					</v-row>
+				</v-container>
 			</v-main>
 		</v-layout>
   </div>
 </template>
+
+<style>
+	h2 {
+		text-align: center;
+	}
+	h4 {
+		text-align: center;
+	}
+</style>

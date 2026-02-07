@@ -4,6 +4,14 @@
 		"playlistID": "PLmrt8ABOvfN6307Jj8GFZEBpe1x0HL6hn"
 	},
 	{
+		"platform": "altSpotify",
+		"trackIDs": [
+			"4d1wPTZIAFQPqD9tO5cIy2",
+			"4ihZMd00dIdhB9IJ0YIVyV",
+			"3UYF166r0fve0KUKnQYPeK"
+		]
+	},
+	{
 		"platform": "Spotify",
 		"playlistID": "0wWy2lBvY0WLM74nxOwTcI"
 	}

@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config'
 import { fileURLToPath } from 'node:url'
+
 export default defineNuxtConfig({
   alias: {
 		'images': fileURLToPath(new URL('./app/assets/images', import.meta.url)),
@@ -24,12 +25,19 @@ export default defineNuxtConfig({
 	},
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/hints', 'vuetify-nuxt-module'],
-	runtimeConfig: {
-		public: {
-			GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
-			EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY,
-			EMAILJS_PRIVATE_KEY: process.env.EMAILJS_PRIVATE_KEY
+  modules: ['@nuxt/hints', 'vuetify-nuxt-module', '@nuxt/scripts'],
+		runtimeConfig: {
+			public: {
+				GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+				EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY,
+				EMAILJS_PRIVATE_KEY: process.env.EMAILJS_PRIVATE_KEY
+			}
+		},
+	vuetify: {
+		vuetifyOptions: {
+			theme: {
+				defaultTheme: 'dark'
+			}
 		}
 	}
 })
