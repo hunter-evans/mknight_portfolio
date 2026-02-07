@@ -1,6 +1,6 @@
 # Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more. This is a personal portfolio page for Mark Knight.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more. This is a personal portfolio page for Mark Knight. Built with Nuxt and deployed on Hostinger.
 
 ## Setup
 
