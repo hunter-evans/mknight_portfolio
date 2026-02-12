@@ -23,9 +23,12 @@ export default defineNuxtConfig({
 			title: 'Nuxt'
 		}
 	},
+	buildModules: [
+		'nuxt-vite'
+	],
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/hints', 'vuetify-nuxt-module', '@nuxt/scripts'],
+  modules: ['@nuxt/hints', '@nuxt/icon', 'vuetify-nuxt-module', '@nuxt/scripts'],
 		runtimeConfig: {
 			public: {
 				GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,

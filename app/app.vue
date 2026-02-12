@@ -11,6 +11,7 @@
 	const spotifyPostURL = "?utm_source=generator&theme=0";
 
 	// dialog consts
+	const speedDial = ref(false);
 	const emailDialog = ref(false);
 	const successSnackbar = ref(false);
 	const failureAlert = ref(false);
@@ -208,19 +209,44 @@
 				expand-on-hover
 				permanent
 				rail
+				@update:rail="speedDial = false"
 				:location="$vuetify.display.mobile ? 'bottom' : undefined"
 			>
 				<v-list>
 					<v-list-item 
 						href="#projects"
-						prepend-icon="mdi-book-music-outline" 
 						title="Projects"
-					/>
+					>
+						<template v-slot:prepend>
+							<v-row>
+								<v-col>
+									<Icon 
+										name="mdi:book-music-outline"
+										size="2em"
+									/>
+								</v-col>
+								<v-col>
+								</v-col>
+							</v-row>
+						</template>
+					</v-list-item>
 					<v-list-item
 						href="#about"
-						prepend-icon="mdi-information-outline"
 						:title="aboutTitle"
-					/>
+					>
+						<template v-slot:prepend>
+							<v-row>
+								<v-col>
+									<Icon 
+										name="mdi:information-outline"
+										size="2em"
+									/>
+								</v-col>
+								<v-col>
+								</v-col>
+							</v-row>
+						</template>
+					</v-list-item>
 				</v-list>
 			</v-navigation-drawer>
 			<v-main class="d-flex align-center justify-center">
@@ -249,9 +275,34 @@
 					>
 						<v-col cols="12" lg="6" v-for="project in ytProjectList">
 							<v-carousel 
-								show-arrows="hover"
 								height="352"
+								hide-delimiters
+								progress="white"
 							>
+								<template v-slot:prev="{ props }">
+									<v-btn 
+										rounded="xl"
+										:icon="true"
+										@click="props.onClick"
+									>
+										<Icon 
+											name="mdi:chevron-left"
+											size="2em"
+										/>
+									</v-btn>
+								</template>
+								<template v-slot:next="{ props }">
+									<v-btn 
+										rounded="xl"
+										:icon="true"
+										@click="props.onClick"
+									>
+										<Icon 
+											name="mdi:chevron-right"
+											size="2em"
+										/>
+									</v-btn>
+								</template>
 								<v-carousel-item v-for="video in project" cover>
 									<iframe
 										:src="ytBaseURL.concat(video)"
@@ -265,9 +316,35 @@
 						</v-col>
 						<v-col cols="12" lg="6" v-for="project in spotifyProjectList">
 							<v-carousel 
-								show-arrows="hover"
 								height="352"
+								show-arrows="always"
+								hide-delimiters
+								progress="white"
 							>
+								<template v-slot:prev="{ props }">
+									<v-btn 
+										rounded="xl"
+										:icon="true"
+										@click="props.onClick"
+									>
+										<Icon 
+											name="mdi:chevron-left"
+											size="2em"
+										/>
+									</v-btn>
+								</template>
+								<template v-slot:next="{ props }">
+									<v-btn 
+										rounded="xl"
+										:icon="true"
+										@click="props.onClick"
+									>
+										<Icon 
+											name="mdi:chevron-right"
+											size="2em"
+										/>
+									</v-btn>
+								</template>
 								<v-carousel-item v-for="track in project" cover>
 									<iframe
 										data-testid="embed-iframe"
@@ -296,6 +373,7 @@
 								</v-card-text>
 								<v-card-actions>
 									<v-speed-dial
+										v-model="speedDial"
 										location="right center"
 										transition="slide-y-reverse-transition"
 									>
@@ -304,14 +382,24 @@
 										</template>
 										<v-btn
 											key="1"
-											icon="mdi-email"
+											:icon="true"
 											@click="emailDialog = true"
-										/>
+										>
+											<Icon
+												name="mdi:email"
+												size="2em"
+											/>
+										</v-btn>
 										<v-btn 
 											key="2"
-											icon="mdi-linkedin"
+											:icon="true"
 											href="https://www.linkedin.com/in/mark-knight-683442129/"
-										/>
+										>
+											<Icon
+												name="mdi:linkedin"
+												size="2em"
+											/>
+										</v-btn>
 									</v-speed-dial>
 								</v-card-actions>
 							</v-card>
