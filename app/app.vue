@@ -14,7 +14,7 @@
 	const speedDial = ref(false);
 	const emailDialog = ref(false);
 	const successSnackbar = ref(false);
-	const failureAlert = ref(false);
+	const failureSnackbar = ref(false);
 	const failureMessage = ref('');
 	const form = ref(false);
 	const loading = ref(false);
@@ -48,7 +48,7 @@
 			}, (error) => {
 				loading.value = false;
 				emailDialog.value = false;
-				failureAlert.value = true;
+				failureSnackbar.value = true;
 				failureMessage.value = error;
 			});
 	}
@@ -409,15 +409,13 @@
 							>
 								Email sent successfully!
 							</v-snackbar>
-							<v-alert
-								v-model="failureAlert"
-								closable
-								title="Error"
+							<v-snackbar
+								v-model="failureSnackbar"
+								timeout="5000"
 								color="error"
-								icon="$error"
 							>
-								Error while sending email. Please try again. {{ failureMessage }}
-							</v-alert>
+								Error while sending: {{ failureMessage }}
+							</v-snackbar>
 						</v-col>
 					</v-row>
 				</v-container>
