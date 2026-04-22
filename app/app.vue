@@ -221,7 +221,7 @@
 							<v-row>
 								<v-col>
 									<Icon 
-										name="mdi:book-music-outline"
+										name="mdi-book-music-outline"
 										size="2em"
 									/>
 								</v-col>
@@ -282,13 +282,9 @@
 								<template v-slot:prev="{ props }">
 									<v-btn 
 										rounded="xl"
-										:icon="true"
+										icon="mdi-chevron-left"
 										@click="props.onClick"
 									>
-										<Icon 
-											name="mdi:chevron-left"
-											size="2em"
-										/>
 									</v-btn>
 								</template>
 								<template v-slot:next="{ props }">
@@ -324,14 +320,9 @@
 								<template v-slot:prev="{ props }">
 									<v-btn 
 										rounded="xl"
-										:icon="true"
+										icon="mdi-chevron-left"
 										@click="props.onClick"
-									>
-										<Icon 
-											name="mdi:chevron-left"
-											size="2em"
-										/>
-									</v-btn>
+									/>
 								</template>
 								<template v-slot:next="{ props }">
 									<v-btn 

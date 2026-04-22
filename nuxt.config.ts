@@ -29,13 +29,22 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['@nuxt/hints', '@nuxt/icon', 'vuetify-nuxt-module', '@nuxt/scripts'],
-		runtimeConfig: {
-			public: {
-				GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
-				EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY,
-				EMAILJS_PRIVATE_KEY: process.env.EMAILJS_PRIVATE_KEY
-			}
-		},
+	runtimeConfig: {
+		public: {
+			GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+			EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY,
+			EMAILJS_PRIVATE_KEY: process.env.EMAILJS_PRIVATE_KEY
+		}
+	},
+	vite: {
+		optimizeDeps: {
+			include: [
+				'@vue/devtools-core',
+				'@vue/devtools-kit',
+				'@emailjs/browser',
+			]
+		}
+	},
 	vuetify: {
 		vuetifyOptions: {
 			theme: {
