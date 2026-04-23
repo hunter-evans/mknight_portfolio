@@ -1,6 +1,5 @@
 # mknight_portfolio
-
-Scaffolded with Vuetify CLI.
+This is the personal portfolio page for [Mark Knight](https://mknight.site/). Scaffolded with Vuetify CLI.
 
 ## ❗️ Documentation
 
