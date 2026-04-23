@@ -19,7 +19,8 @@ export default defineNuxtConfig({
 					href: './public/favicon.ico'
 				}
 			],
-			title: 'Nuxt'
+			title: 'Nuxt',
+			viewport: 'width=device-width, initial-scale=1'
 		}
 	},
   compatibilityDate: '2025-12-21',
