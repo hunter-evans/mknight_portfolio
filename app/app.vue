@@ -3,6 +3,7 @@
 </script>
 
 <template>
+	<v-responsive>
   <v-app>
 		<Navdrawer />
     <v-main
@@ -18,4 +19,5 @@
       @click="$vuetify.theme.cycle()"
     />
   </v-app>
+	</v-responsive>
 </template>
