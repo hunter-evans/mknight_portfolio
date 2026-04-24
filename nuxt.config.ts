@@ -79,6 +79,7 @@ export default defineNuxtConfig({
       }
     },
     vuetifyOptions: {
+			labComponents: 'VVideo',
       theme: {
         defaultTheme: 'dark',
         utilities: false,
