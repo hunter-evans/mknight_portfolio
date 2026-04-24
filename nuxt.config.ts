@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
 	alias: {
+		'components': fileURLToPath(new URL('./app/components', import.meta.url)),
 		'data': fileURLToPath(new URL('./app/assets/data', import.meta.url)),
 		'images': fileURLToPath(new URL('./app/assets/images', import.meta.url))
 	},

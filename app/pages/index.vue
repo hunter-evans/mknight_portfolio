@@ -1,3 +1,11 @@
+<script setup lang="ts">
+	const props = defineProps({
+		pageTitle: String,
+	});
+</script>
+
 <template>
-  <LandingPage />
+  <LandingPage 
+		:page-title="props.pageTitle"
+	/>
 </template>

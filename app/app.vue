@@ -1,10 +1,9 @@
 <script setup lang="ts">
-	import { ref, provide } from 'vue';
+	import { ref } from 'vue';
 
 	const title = ref("D. M. Knight: Music Technologist");
 	const descrp = ref("Discover Mark Knight's plethora of audio projects and consider hiring him for your next audio engineering or recording need in the Washington, D.C. metro area or around the world.");
 
-	provide('title', title);
 	useSeoMeta({
 		creator: "Hunter Evans",
 		description: descrp,
@@ -23,7 +22,9 @@
     <v-main
 			class="flex justify-center content-center"
 		>
-      <nuxt-page />
+      <nuxt-page 
+				:page-title="title"
+			/>
     </v-main>
     <v-btn
       class="m-2"
