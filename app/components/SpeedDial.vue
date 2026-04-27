@@ -26,6 +26,7 @@
 			key="2"
 			icon="mdi-linkedin"
 			href="https://www.linkedin.com/in/mark-knight-683442129"
+			target="_blank"
 		/>
 	</v-speed-dial>
 </template>
