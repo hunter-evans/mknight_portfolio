@@ -26,34 +26,26 @@
 	}
 
 	// generate single entry project method
-	function generateSingleURL(name, platform, id) {
-		// TODO: create newProject type
-		let newProject = {
-			"name": name,
-			"platform": platform,
-			"list": []
-		};
-		if(platform === "YouTube") {
-			newProject.list.push(generateYouTubeURL(id));
+	function generateSingleURL(project) {
+		let urls = [];
+		if(project.platform === "YouTube") {
+			urls.push(generateYouTubeURL(project.id));
 		}
-		else if(platform === "Spotify") {
-			newProject.list.push(generateSpotifyURL(id));
+		else if(project.platform === "Spotify") {
+			urls.push(generateSpotifyURL(project.id));
 		}
-		return newProject;
+		project.id = urls;
+		return project;
 	}
 
 	// generate playlist methods
-	async function generateMultipleURLsFromSingle(name, platform, id) {
-		let newProject = {
-			"name": name,
-			"platform": platform,
-			"list": [],
-		};
+	async function generateMultipleURLsFromSingle(project) {
+		let urls = [];
 		let key = "";
 		let queryURL = "";
-		if(platform === "YouTube") {
+		if(project.platform === "YouTube") {
 			key = useRuntimeConfig().public.GOOGLE_API_KEY;
-			queryURL = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id}&key=${key}`;
+			queryURL = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${project.id}&key=${key}`;
 		}
 		else {
 			// TODO: add spotify options
@@ -66,39 +58,37 @@
 			});
 			for(const track of response.items) {
 				let newTrack = "";
-				if(platform === "YouTube") {
+				if(project.platform === "YouTube") {
 					newTrack = generateYouTubeURL(track.snippet.resourceId.videoId);
 				}
-				else if(platform === "Spotify") {
+				else if(project.platform === "Spotify") {
 					// TODO: fill in generate Spotify
 					// newTrack = generateSpotifyURL();
 				}
-				newProject.list.push(newTrack);
+				urls.push(newTrack);
 			}
 		}
 		catch(error) {
-			console.log(`Error fetching ${platform} playlist ${id}:`, error);
+			console.log(`Error fetching ${project.platform} playlist ${project.id}:`, error);
 		}
-		localProjectList.value.push(newProject);
+		project.id = urls;
+		localProjectList.value.push(project);
 	}
 
-	function generateMultipleURLsFromMultiple(name, platform, ids) {
-		let newProject = {
-			"name": name,
-			"platform": platform,
-			"list": []
-		};
-		for(const track of ids) {
+	function generateMultipleURLsFromMultiple(project) {
+		let urls = [];
+		for(const track of project.id) {
 			let newTrack = "";
-			if(platform === "YouTube") {
+			if(project.platform === "YouTube") {
 				newTrack = generateYouTubeURL(track);
 			}
-			else if(platform === "Spotify") {
+			else if(project.platform === "Spotify") {
 				newTrack = generateSpotifyURL(track);
 			}
-			newProject.list.push(newTrack);
+			urls.push(newTrack);
 		}
-		return newProject;
+		project.id = urls;
+		return project;
 	}
 
 	onMounted(() => {
@@ -106,14 +96,14 @@
 			if(project.category === props.tabObj.category) {
 				if(project.playlist) {
 					if(project.singleQuery) {
-						generateMultipleURLsFromSingle(project.name, project.platform, project.id);
+						generateMultipleURLsFromSingle(project);
 					}
 					else {
-						localProjectList.value.push(generateMultipleURLsFromMultiple(project.name, project.platform, project.id));
+						localProjectList.value.push(generateMultipleURLsFromMultiple(project));
 					}
 				}
 				else {
-					localProjectList.value.push(generateSingleURL(project.name, project.platform, project.id));
+					localProjectList.value.push(generateSingleURL(project));
 				}
 			}
 		}

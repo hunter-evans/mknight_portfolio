@@ -8,24 +8,25 @@
 	function clearIFrame(side) {
 		let idx = 0;
 		if(side === "left") {
-			idx = ((carouselIndex.value === (props.project.list.length - 1)) ? 0 : (carouselIndex.value + 1));
+			idx = ((carouselIndex.value === (props.project.id.length - 1)) ? 0 : (carouselIndex.value + 1));
 		}
 		else if(side === "right") {
-			idx = ((carouselIndex.value === 0) ? (props.project.list.length - 1) : (carouselIndex.value - 1));
+			idx = ((carouselIndex.value === 0) ? (props.project.id.length - 1) : (carouselIndex.value - 1));
 		}
 
 		let iframe = document.getElementById(props.project.name + idx).contentWindow;
 		iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', "*");
 	}
+	console.log(props.project);
 </script>
 
 <template>
 	<v-carousel
 		v-model="carouselIndex"
-		:show-arrows="props.project.list.length > 1"
+		:show-arrows="props.project.id.length > 1"
+		:progress="props.project.id.length > 1 ? 'white' : false"
 		height="352"
 		hide-delimiters
-		:progress="props.project.list.length > 1 ? 'white' : false"
 	>
 		<template 
 			v-slot:prev="{ props }"
@@ -44,9 +45,21 @@
 			/>
 		</template>
 		<v-carousel-item
-			v-for="(track, n) in props.project.list"
+			v-for="(track, n) in props.project.id"
 			cover
 		>
+			<p
+				v-if="props.project.category === 'award'"
+				class="mt-0"
+			>
+				WINNER: 
+				<a 
+					:href="props.project.link" 
+					target="_blank"
+				>
+					{{ props.project.description }}
+				</a>
+			</p>
 			<iframe
 				v-if="props.project.platform === 'YouTube'"
 				:id="props.project.name + n"
