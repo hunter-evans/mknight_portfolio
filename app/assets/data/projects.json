@@ -1,18 +1,48 @@
 [
 	{
+		"name": "2026GMRAWinner",
+		"category": "award",
 		"platform": "YouTube",
-		"playlistID": "PLmrt8ABOvfN6307Jj8GFZEBpe1x0HL6hn"
+		"playlist": false,
+		"singleQuery": true,
+		"id": "mJyahkPF-NM",
+		"description": "2026 Game Music Remix Awards: Symphonic",
+		"link": "https://vgmcon.org/activities/2026-game-music-remix-awards/"
 	},
 	{
-		"platform": "altSpotify",
-		"trackIDs": [
+		"name": "Spring25Concert",
+		"category": "wmgso",
+		"platform": "YouTube",
+		"playlist": true,
+		"singleQuery": true,
+		"id": "PLmrt8ABOvfN6307Jj8GFZEBpe1x0HL6hn"
+	},
+	{
+		"name": "HaydenAlbum",
+		"category": "collab",
+		"platform": "Spotify",
+		"playlist": true,
+		"singleQuery": false,
+		"id": [
 			"4d1wPTZIAFQPqD9tO5cIy2",
 			"4ihZMd00dIdhB9IJ0YIVyV",
 			"3UYF166r0fve0KUKnQYPeK"
 		]
 	},
 	{
+		"name": "HaydenAlbum",
+		"category": "collab",
 		"platform": "Spotify",
-		"playlistID": "0wWy2lBvY0WLM74nxOwTcI"
+		"playlist": true,
+		"singleQuery": true,
+		"id": "0wWy2lBvY0WLM74nxOwTcI"
+	},
+	{
+		"name": "LMNR2026Belvedere",
+		"category": "collab",
+		"platform": "YouTube",
+		"playlist": false,
+		"singleQuery": true,
+		"id": "CdhzSphQEYs"
 	}
 ]

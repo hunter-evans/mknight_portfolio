@@ -1,38 +1,8 @@
 <script setup lang="ts">
 	import { provide } from "vue";
+	import tabArr from "data/tabs.json"
 
 	// TODO: incorporate GSO/UMW icons
-	// TODO: construct tabs via method
-  const navTabs = [
-		{
-			title: "WMGSO Projects",
-			href: "wmgsoproj",
-			icon: "mdi-music-note-eighth"
-		},
-		{
-			title: "UMW Projects",
-			href: "umwproj",
-			icon: "mdi-school"
-		},
-		{
-			title: "Collaborative Projects",
-			href: "collabproj",
-			icon: "mdi-human-queue"
-		},
-		{
-			title: "Personal Projects",
-			href: "personalproj",
-			icon: "mdi-waveform"
-		},
-		{
-			title: "About Me",
-			href: "about",
-			icon: "mdi-information-variant-box"
-		}
-	];
-
-	// TODO: move aboutTitle into parent component to provide
-	// provide('aboutTitle', navTabs[navTabs.length - 1].title);
 </script>
 
 <template>
@@ -50,7 +20,7 @@
 			nav
 		>
 			<v-list-item
-				v-for="item in navTabs"
+				v-for="item in tabArr"
 				:href="'#' + item.href"
 				:title="item.title"
 			>

@@ -1,0 +1,38 @@
+[
+	{
+		"title": "Awarded Projects",
+		"category": "award",
+		"href": "awardproj",
+		"icon": "mdi-trophy-award"
+	},
+	{
+		"title": "WMGSO Projects",
+		"category": "wmgso",
+		"href": "wmgsoproj",
+		"icon": "mdi-controller-classic"
+	},
+	{
+		"title": "UMW Projects",
+		"category": "umw",
+		"href": "umwproj",
+		"icon": "mdi-school"
+	},
+	{
+		"title": "Collaborative Projects",
+		"category": "collab",
+		"href": "collabproj",
+		"icon": "mdi-human-queue"
+	},
+	{
+		"title": "Personal Projects",
+		"category": "personal",
+		"href": "personalproj",
+		"icon": "mdi-waveform"
+	},
+	{
+		"title": "About Me",
+		"href": "about",
+		"icon": "mdi-information-variant-box",
+		"text": "D. Mark Knight, Jr. is an award-winning audio engineer based in the Washington, D.C. metro region with a background in audio editing, engineering, and live sound recording. He is an audio editor and small concert producer for the Washington Metropolitan Gamer Symphony Orchestra and its associated small ensembles. Mark is a graduate of the University of Mary Washington with a Bachelor of Arts in Music. In his spare time, Mark is an avid woodwinds musician, playing flute, clarinet, tenor saxophone, and bassoon."
+	}
+]

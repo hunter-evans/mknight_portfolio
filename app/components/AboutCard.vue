@@ -1,16 +1,17 @@
 <script setup lang="ts">
+	// imports
 	import SpeedDial from "components/SpeedDial.vue";
 	import EmailDialog from "components/EmailDialog.vue";
 
-	// TODO: reinject after move into app
-	// const aboutTitle = inject("aboutTitle");
-	const aboutTitle = "About Me";
-	const aboutText = "D. Mark Knight, Jr. is an award-winning audio engineer based in the Washington, D.C. metro region with a background in audio editing, engineering, and live sound recording. He is an audio editor and small concert producer for the Washington Metropolitan Gamer Symphony Orchestra and its associated small ensembles. Mark is a graduate of the University of Mary Washington with a Bachelor of Arts in Music. In his spare time, Mark is an avid woodwinds musician, playing flute, clarinet, tenor saxophone, and bassoon.";
+	// prop to handle about info
+	const props = defineProps(['aboutObj']);
 
+	// reactive values for popups
 	const emailDialog = ref(false);
 	const successSnackbar = ref(false);
 	const failureSnackbar = ref(false);
 
+	// error messaging
 	const errMsg = ref('');
 	function handleFailure(err) {
 		errMsg.value = err;
@@ -20,9 +21,9 @@
 
 <template>
 	<v-card 
-		id="about"
-		:title="aboutTitle"
-		:text="aboutText"
+		:id="props.aboutObj.href"
+		:title="props.aboutObj.title"
+		:text="props.aboutObj.text"
 	>
 		<v-card-actions>
 			<SpeedDial 
