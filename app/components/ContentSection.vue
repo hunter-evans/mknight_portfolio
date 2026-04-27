@@ -15,42 +15,106 @@
 	// reactive values
 	const localProjectList = ref([]);
 
-	async function generateYouTubeURLs(id) {
-		const key = useRuntimeConfig().public.GOOGLE_API_KEY;
-		const url = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id}&key=${key}`;
+	// TODO: consider moving methods to external file
+	// generate URL string methods
+	function generateYouTubeURL(id) {
+		return ytBaseURL.concat(id).concat(ytPostURL);
+	}
+
+	function generateSpotifyURL(id) {
+		return spBaseURL.concat(id).concat(spPostURL);
+	}
+
+	// generate single entry project method
+	function generateSingleURL(name, platform, id) {
+		// TODO: create newProject type
+		let newProject = {
+			"name": name,
+			"platform": platform,
+			"list": []
+		};
+		if(platform === "YouTube") {
+			newProject.list.push(generateYouTubeURL(id));
+		}
+		else if(platform === "Spotify") {
+			newProject.list.push(generateSpotifyURL(id));
+		}
+		return newProject;
+	}
+
+	// generate playlist methods
+	async function generateMultipleURLsFromSingle(name, platform, id) {
+		let newProject = {
+			"name": name,
+			"platform": platform,
+			"list": [],
+		};
+		let key = "";
+		let queryURL = "";
+		if(platform === "YouTube") {
+			key = useRuntimeConfig().public.GOOGLE_API_KEY;
+			queryURL = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id}&key=${key}`;
+		}
+		else {
+			// TODO: add spotify options
+			return;
+		}
+
 		try {
-			const response = await $fetch(url, {
+			const response = await $fetch(queryURL, {
 				method: "GET"
 			});
-			let newProject = [];
-			for(const video of response.items) {
-				const newVideo = ytBaseURL.concat(video.snippet.resourceId.videoId).concat(ytPostURL);
-				newProject.push(newVideo);
+			for(const track of response.items) {
+				let newTrack = "";
+				if(platform === "YouTube") {
+					newTrack = generateYouTubeURL(track.snippet.resourceId.videoId);
+				}
+				else if(platform === "Spotify") {
+					// TODO: fill in generate Spotify
+					// newTrack = generateSpotifyURL();
+				}
+				newProject.list.push(newTrack);
 			}
-			localProjectList.value.push(newProject);
 		}
 		catch(error) {
-			console.log(`Error fetching YouTube playlist ${id}:`, error);
+			console.log(`Error fetching ${platform} playlist ${id}:`, error);
 		}
+		localProjectList.value.push(newProject);
+	}
+
+	function generateMultipleURLsFromMultiple(name, platform, ids) {
+		let newProject = {
+			"name": name,
+			"platform": platform,
+			"list": []
+		};
+		for(const track of ids) {
+			let newTrack = "";
+			if(platform === "YouTube") {
+				newTrack = generateYouTubeURL(track);
+			}
+			else if(platform === "Spotify") {
+				newTrack = generateSpotifyURL(track);
+			}
+			newProject.list.push(newTrack);
+		}
+		return newProject;
 	}
 
 	onMounted(() => {
 		for(const project of props.projectList) {
 			if(project.category === props.tabObj.category) {
-				if(project.platform === "YouTube") {
-					if(project.playlist) {
-						generateYouTubeURLs(project.id);
+				if(project.playlist) {
+					if(project.singleQuery) {
+						generateMultipleURLsFromSingle(project.name, project.platform, project.id);
+					}
+					else {
+						localProjectList.value.push(generateMultipleURLsFromMultiple(project.name, project.platform, project.id));
 					}
 				}
-				/*
-				else if(project.platform === "altSpotify") {
-					let newProject = [];
-					for(const track of project.trackIDs) {
-						newProject.push(track);
-					}
-					spotifyProjectList.value.push(newProject);
+				else {
+					localProjectList.value.push(generateSingleURL(project.name, project.platform, project.id));
 				}
-				*/
 			}
 		}
 	});

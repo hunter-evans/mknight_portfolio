@@ -37,7 +37,7 @@
 		/>
 		<v-row>
 			<v-col>
-				<!-- TODO: ad disclaimer -->
+				<!-- TODO: ad disclaimer rewriet -->
 				<p>© Copyright {{ new Date().getFullYear() }}. Any views expressed by advertisements on this page to not reflect the views held by D. M. Knight, Jr.</p>
 			</v-col>
 		</v-row>

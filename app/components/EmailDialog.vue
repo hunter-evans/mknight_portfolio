@@ -2,6 +2,7 @@
 	import { ref } from "vue";
 	import emailjs from "@emailjs/browser";
 
+	// input props and output emits
 	const props = defineProps({
 		openDialog: Boolean
 	});
@@ -11,6 +12,7 @@
 		"failSnack"
 	]);
 
+	// reactive values
 	const form = ref(false);
 	const userEmail = ref("");
 	const userSubject = ref("");

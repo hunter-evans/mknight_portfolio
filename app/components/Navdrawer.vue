@@ -14,8 +14,6 @@
 		permanent
 		rail
 	>
-	<!--
-	-->
 		<v-list
 			nav
 		>
