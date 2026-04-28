@@ -64,7 +64,7 @@
 				v-if="props.project.platform === 'YouTube'"
 				:id="props.project.name + n"
 				:src="track"
-				height="100%"
+				:height="props.project.category === 'award' ? '89%' : '100%'"
 				width="100%"
 				allowfullscreen
 				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

@@ -3,6 +3,7 @@
 	import tabArr from "data/tabs.json"
 
 	// TODO: incorporate GSO/UMW icons
+	// TODO: mobile - live update displayed icon with page during scroll
 </script>
 
 <template>
