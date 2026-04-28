@@ -1,6 +1,5 @@
 <script setup lang="ts">
 	// imports
-	import ContentSection from "components/ContentSection.vue";
 	import projectArr from 'data/projects.json';
 	import tabsArr from "data/tabs.json";
 

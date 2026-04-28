@@ -1,5 +1,4 @@
 <script setup lang="ts">
-	import { provide } from "vue";
 	import tabArr from "data/tabs.json"
 
 	// TODO: incorporate GSO/UMW icons

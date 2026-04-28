@@ -1,8 +1,4 @@
 <script setup lang="ts">
-	// imports
-	import AboutCard from "components/AboutCard.vue";
-	import ProjectHolder from "components/ProjectHolder.vue";
-
 	// input props
 	const props = defineProps(["tabObj", "projectList"]);
 

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-	// imports
-	import SpeedDial from "components/SpeedDial.vue";
-	import EmailDialog from "components/EmailDialog.vue";
-
 	// prop to handle about info
 	const props = defineProps(['aboutObj']);
 
