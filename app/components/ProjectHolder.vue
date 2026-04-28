@@ -17,7 +17,6 @@
 		let iframe = document.getElementById(props.project.name + idx).contentWindow;
 		iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', "*");
 	}
-	console.log(props.project);
 </script>
 
 <template>
@@ -61,24 +60,16 @@
 				</a>
 			</p>
 			<iframe
-				v-if="props.project.platform === 'YouTube'"
 				:id="props.project.name + n"
 				:src="track"
+				:title="props.project.platform + 'video player'"
+				:style=" props.project.platform === 'Spotify' ? 'border-radius:12px' : null"
 				:height="props.project.category === 'award' ? '89%' : '100%'"
 				width="100%"
+				frameborder="0"
+				loading="lazy"
 				allowfullscreen
-				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-			/>
-			<iframe
-				v-if="props.project.platform === 'Spotify'"
-				data-testid="embed-iframe"
-				style="border-radius:12px"
-				:src="track"
-				height="100%"
-				width="100%"
-				frameBorder="0"
-				allowfullscreen
-				allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 			/>
 		</v-carousel-item>
 	</v-carousel>

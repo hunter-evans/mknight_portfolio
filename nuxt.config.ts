@@ -55,6 +55,12 @@ export default defineNuxtConfig({
       '@tailwindcss/postcss': {}
     }
   },
+	routeRules: {
+		'/': {
+			prerender: true,
+			swr: true
+		}
+	},
 	runtimeConfig: {
 		public: {
 			GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
@@ -79,7 +85,6 @@ export default defineNuxtConfig({
       }
     },
     vuetifyOptions: {
-			labComponents: 'VVideo',
       theme: {
         defaultTheme: 'dark',
         utilities: false,
