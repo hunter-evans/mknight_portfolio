@@ -7,6 +7,8 @@
 	const ytPostURL = "?enablejsapi=1";
 	const spBaseURL = "https://open.spotify.com/embed/track/";
 	const spPostURL = "?utm_source=generator&theme=0";
+	const driveBaseURL = "https://drive.google.com/file/d/";
+	const drivePostURL = "/preview";
 
 	// reactive values
 	const localProjectList = ref([]);
@@ -21,6 +23,10 @@
 		return spBaseURL.concat(id).concat(spPostURL);
 	}
 
+	function generateDriveURL(id) {
+		return driveBaseURL.concat(id).concat(drivePostURL);
+	}
+
 	// generate single entry project method
 	function generateSingleURL(project) {
 		let urls = [];
@@ -29,6 +35,9 @@
 		}
 		else if(project.platform === "Spotify") {
 			urls.push(generateSpotifyURL(project.id));
+		}
+		else if(project.platform === "Drive") {
+			urls.push(generateDriveURL(project.id));
 		}
 		project.id = urls;
 		return project;

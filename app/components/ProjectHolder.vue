@@ -48,16 +48,25 @@
 			cover
 		>
 			<p
-				v-if="props.project.category === 'award'"
 				class="mt-0"
 			>
-				WINNER: 
+				<span
+					v-if="props.project.category === 'award'"
+				>
+					WINNER: 
+				</span>
 				<a 
+					v-if="props.project.category === 'award'"
 					:href="props.project.link" 
 					target="_blank"
 				>
 					{{ props.project.description }}
 				</a>
+				<template
+					v-if="props.project.category != 'award'"
+				>
+					{{ props.project.description }}
+				</template>
 			</p>
 			<iframe
 				:id="props.project.name + n"

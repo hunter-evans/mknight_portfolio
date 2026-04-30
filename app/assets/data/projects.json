@@ -44,5 +44,37 @@
 		"playlist": false,
 		"singleQuery": true,
 		"id": "CdhzSphQEYs"
+	},
+	{
+		"name": "MarshMarigolds",
+		"category": "umw",
+		"platform": "Drive",
+		"playlist": false,
+		"singleQuery": true,
+		"id": "1LdFFj-F1YcweAGchEM754yGXU_Qg8CDD"
+	},
+	{
+		"name": "BabyItsJustYou",
+		"category": "wmgso",
+		"platform": "Drive",
+		"playlist": false,
+		"singleQuery": true,
+		"id": "1-jMmfjGfGUG24Jl9FX-8uivyAY5Mhqc_"
+	},
+	{
+		"name": "FoleyProject",
+		"category": "umw",
+		"platform": "YouTube",
+		"playlist": false,
+		"singleQuery": true,
+		"id": "swWqcDso_BY"
+	},
+	{
+		"name": "Bumblebee",
+		"category": "umw",
+		"platform": "Drive",
+		"playlist": false,
+		"singleQuery": true,
+		"id": "1xVQ1LUhhRYS1B4ihm0D0BsTdEg9RD34u"
 	}
 ]
