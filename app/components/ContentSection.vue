@@ -7,7 +7,7 @@
 	const ytPostURL = "?enablejsapi=1";
 	const spBaseTrackURL = "https://open.spotify.com/embed/track/";
 	const spBaseAlbumURL = "https://open.spotify.com/embed/album/";
-	const spPostURL = "?utm_source=generator&theme=0";
+	const spPostURL = "?utm_source=generator";
 	const driveBaseURL = "https://drive.google.com/file/d/";
 	const drivePostURL = "/preview";
 
