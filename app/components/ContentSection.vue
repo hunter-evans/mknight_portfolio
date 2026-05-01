@@ -5,7 +5,8 @@
 	// constants
 	const ytBaseURL = "https://www.youtube.com/embed/";
 	const ytPostURL = "?enablejsapi=1";
-	const spBaseURL = "https://open.spotify.com/embed/track/";
+	const spBaseTrackURL = "https://open.spotify.com/embed/track/";
+	const spBaseAlbumURL = "https://open.spotify.com/embed/album/";
 	const spPostURL = "?utm_source=generator&theme=0";
 	const driveBaseURL = "https://drive.google.com/file/d/";
 	const drivePostURL = "/preview";
@@ -19,8 +20,12 @@
 		return ytBaseURL.concat(id).concat(ytPostURL);
 	}
 
-	function generateSpotifyURL(id) {
-		return spBaseURL.concat(id).concat(spPostURL);
+	function generateSpotifyTrackURL(id) {
+		return spBaseTrackURL.concat(id).concat(spPostURL);
+	}
+
+	function generateSpotifyAlbumURL(id) {
+		return spBaseAlbumURL.concat(id).concat(spPostURL);
 	}
 
 	function generateDriveURL(id) {
@@ -34,7 +39,7 @@
 			urls.push(generateYouTubeURL(project.id));
 		}
 		else if(project.platform === "Spotify") {
-			urls.push(generateSpotifyURL(project.id));
+			urls.push(generateSpotifyTrackURL(project.id));
 		}
 		else if(project.platform === "Drive") {
 			urls.push(generateDriveURL(project.id));
@@ -46,36 +51,26 @@
 	// generate playlist methods
 	async function generateMultipleURLsFromSingle(project) {
 		let urls = [];
-		let key = "";
-		let queryURL = "";
 		if(project.platform === "YouTube") {
-			key = useRuntimeConfig().public.GOOGLE_API_KEY;
-			queryURL = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${project.id}&key=${key}`;
-		}
-		else {
-			// TODO: add spotify options
-			return;
-		}
+			const key = useRuntimeConfig().public.GOOGLE_API_KEY;
+			const queryURL = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${project.id}&key=${key}`;
 
-		try {
-			const response = await $fetch(queryURL, {
-				method: "GET"
-			});
-			for(const track of response.items) {
-				let newTrack = "";
-				if(project.platform === "YouTube") {
-					newTrack = generateYouTubeURL(track.snippet.resourceId.videoId);
+			try {
+				const response = await $fetch(queryURL, {
+					method: "GET"
+				});
+				for(const track of response.items) {
+					urls.push(generateYouTubeURL(track.snippet.resourceId.videoId));
 				}
-				else if(project.platform === "Spotify") {
-					// TODO: fill in generate Spotify
-					// newTrack = generateSpotifyURL();
-				}
-				urls.push(newTrack);
+			}
+			catch(error) {
+				console.log(`Error fetching ${project.platform} playlist ${project.id}:`, error);
 			}
 		}
-		catch(error) {
-			console.log(`Error fetching ${project.platform} playlist ${project.id}:`, error);
+		else if(project.platform === "Spotify") {
+			urls.push(generateSpotifyAlbumURL(project.id));
 		}
+
 		project.id = urls;
 		localProjectList.value.push(project);
 	}
@@ -88,7 +83,7 @@
 				newTrack = generateYouTubeURL(track);
 			}
 			else if(project.platform === "Spotify") {
-				newTrack = generateSpotifyURL(track);
+				newTrack = generateSpotifyTrackURL(track);
 			}
 			urls.push(newTrack);
 		}
