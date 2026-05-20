@@ -116,7 +116,7 @@
 		:about-obj="tabObj"
 	/>
 	<v-card
-		v-if="tabObj.href != 'about'"
+		v-else
 		:id="tabObj.href"
 		:title="tabObj.title"
 	>

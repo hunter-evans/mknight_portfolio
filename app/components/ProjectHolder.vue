@@ -20,6 +20,27 @@
 </script>
 
 <template>
+	<p
+		class="mt-0"
+	>
+		<span
+			v-if="props.project.category === 'award'"
+		>
+			WINNER: 
+		</span>
+		<a 
+			v-if="props.project.category === 'award'"
+			:href="props.project.link" 
+			target="_blank"
+		>
+			{{ props.project.description }}
+		</a>
+		<template
+			v-else
+		>
+			{{ props.project.description }}
+		</template>
+	</p>
 	<v-carousel
 		v-model="carouselIndex"
 		:show-arrows="props.project.id.length > 1"
@@ -47,27 +68,6 @@
 			v-for="(track, n) in props.project.id"
 			cover
 		>
-			<p
-				class="mt-0"
-			>
-				<span
-					v-if="props.project.category === 'award'"
-				>
-					WINNER: 
-				</span>
-				<a 
-					v-if="props.project.category === 'award'"
-					:href="props.project.link" 
-					target="_blank"
-				>
-					{{ props.project.description }}
-				</a>
-				<template
-					v-if="props.project.category != 'award'"
-				>
-					{{ props.project.description }}
-				</template>
-			</p>
 			<iframe
 				:id="props.project.name + n"
 				:src="track"
