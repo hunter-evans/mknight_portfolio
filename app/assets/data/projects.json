@@ -36,14 +36,16 @@
 		"category": "umw",
 		"platform": "Drive",
 		"playlist": false,
-		"id": "1LdFFj-F1YcweAGchEM754yGXU_Qg8CDD"
+		"id": "1LdFFj-F1YcweAGchEM754yGXU_Qg8CDD",
+		"description": "The Marsh Marigold's Song. Performed by the  Don Camillo Choir. (Courtesy of the Cambridge Mixing Secrets Library)"
 	},
 	{
 		"name": "BabyItsJustYou",
 		"category": "wmgso",
 		"platform": "Drive",
 		"playlist": false,
-		"id": "1-jMmfjGfGUG24Jl9FX-8uivyAY5Mhqc_"
+		"id": "1-jMmfjGfGUG24Jl9FX-8uivyAY5Mhqc_",
+		"description": "Baby It's Just You (from Fallout 4). Performed by a jazz set of WMGSO members."
 	},
 	{
 		"name": "FoleyProject",
@@ -57,6 +59,7 @@
 		"category": "umw",
 		"platform": "Drive",
 		"playlist": false,
-		"id": "1xVQ1LUhhRYS1B4ihm0D0BsTdEg9RD34u"
+		"id": "1xVQ1LUhhRYS1B4ihm0D0BsTdEg9RD34u",
+		"description": "Trude The Bumblebee. Performed by the Don Camillo Choir. (Courtesy of the Cambridge Mixing Secrets Library)"
 	}
 ]
