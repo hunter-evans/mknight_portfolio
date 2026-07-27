@@ -104,6 +104,7 @@ export default defineNuxtConfig({
   vuetify: {
     moduleOptions: {
 			disableVuetifyStyles: true,
+			prefixComposables: true,
       styles: { 
 				configFile: 'assets/styles/settings.scss'
 			},
