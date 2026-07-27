@@ -9,6 +9,7 @@
 	<v-app-bar
 		:scroll-behavior="!$vuetify.display.mobile ? 'hide inverted collapse' : undefined"
 		:location="$vuetify.display.mobile ? 'bottom' : 'top'"
+		order="1"
 	>
 		<template 
 			v-slot:prepend

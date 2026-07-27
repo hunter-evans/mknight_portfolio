@@ -43,7 +43,7 @@
 	</p>
 	<v-carousel
 		v-model="carouselIndex"
-		:height="props.project.platform === 'Drive' ? '100' : '352'"
+		:height="props.project.platform === 'Drive' ? '200' : '500'"
 		:progress="props.project.id.length > 1 ? 'white' : false"
 		:show-arrows="props.project.id.length > 1"
 		hide-delimiters
