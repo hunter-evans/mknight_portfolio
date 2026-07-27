@@ -81,7 +81,8 @@ export default defineNuxtConfig({
 		'@nuxt/fonts', 
 		'vuetify-nuxt-module', 
 		'@nuxt/eslint', 
-		'@nuxtjs/i18n'
+		'@nuxtjs/i18n',
+		'@nuxt/test-utils/module'
 	],
   postcss: {
     plugins: {
