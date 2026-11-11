@@ -2,6 +2,7 @@
 	<v-speed-dial
 		location="right center"
 		transition="slide-y-reverse-transition"
+		scroll-strategy="close"
 		open-on-hover
 	>
 		<template 
