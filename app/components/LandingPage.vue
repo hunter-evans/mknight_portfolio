@@ -22,7 +22,8 @@
 				>{{ props.pageTitle }}</h1>
 				<v-divider
 					gradient
-					class="border-opacity-75"
+					class="border-opacity-100"
+					:thickness="3"
 				/>
 				<h4 
 					class="text-xl"

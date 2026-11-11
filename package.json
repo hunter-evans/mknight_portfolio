@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "NODE_OPTIONS='--trace-warnings --no-webstorage' nuxt dev",
+    "dev": "NODE_OPTIONS='--trace-warnings --no-experimental-webstorage' nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -12,12 +12,11 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
+    "@emailjs/browser": "^5.0.3",
     "@mdi/font": "7.4.47",
+    "@nuxt/test-utils": "^4.4.0",
     "@nuxtjs/i18n": "^10.5.0",
-    "brace-expansion": "^5.0.8",
-    "esbuild": "^0.28.1",
-    "glob": "^13.0.6",
+    "glob": "^14.0.4",
     "nuxt": "^4.5.1",
     "vue": "^3.5.40",
     "vue-i18n": "^11.4.8",
@@ -26,17 +25,14 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.16.0",
-    "@nuxt/fonts": "^0.14.0",
-    "@nuxt/test-utils": "^4.1.0",
+    "@nuxt/fonts": "^1.2.0",
     "@tailwindcss/postcss": "^4.3.3",
-    "@vue/test-utils": "^2.4.11",
     "eslint": "^10.8.0",
     "eslint-config-vuetify": "^4.7.2",
-    "happy-dom": "^20.11.1",
     "playwright-core": "^1.62.0",
     "sass": "^1.102.0",
     "tailwindcss": "^4.3.3",
-    "vitest": "^4.1.10"
+    "vitest": "^5.1.0"
   },
   "allowScripts": {
     "@parcel/watcher@2.6.0": true,
