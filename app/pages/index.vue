@@ -5,7 +5,5 @@
 </script>
 
 <template>
-  <LandingPage
-    :page-title="props.pageTitle"
-  />
+  <LandingPage :page-title="props.pageTitle" />
 </template>

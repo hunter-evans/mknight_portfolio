@@ -19,14 +19,8 @@
 </script>
 
 <template>
-  <p
-    class="mt-0"
-  >
-    <span
-      v-if="inputProps.project.category === 'award'"
-    >
-      WINNER:
-    </span>
+  <p class="mt-0">
+    <span v-if="inputProps.project.category === 'award'">WINNER: </span>
 
     <a
       v-if="inputProps.project.category === 'award'"
@@ -36,11 +30,7 @@
       {{ inputProps.project.description }}
     </a>
 
-    <template
-      v-else
-    >
-      {{ inputProps.project.description }}
-    </template>
+    <template v-else>{{ inputProps.project.description }}</template>
   </p>
 
   <v-carousel
@@ -50,18 +40,14 @@
     :progress="inputProps.project.id.length > 1 ? 'white' : false"
     :show-arrows="inputProps.project.id.length > 1"
   >
-    <template
-      #prev="{ props }"
-    >
+    <template #prev="{ props }">
       <v-btn
         icon="mdi-chevron-left"
         @click="props.onClick(); clearIFrame('left')"
       />
     </template>
 
-    <template
-      #next="{ props }"
-    >
+    <template #next="{ props }">
       <v-btn
         icon="mdi-chevron-right"
         @click="props.onClick(); clearIFrame('right')"

@@ -5,13 +5,8 @@
     scroll-strategy="close"
     transition="slide-y-reverse-transition"
   >
-    <template
-      #activator="{ props: activatorProps }"
-    >
-      <v-btn
-        v-bind="activatorProps"
-      >Contact
-      </v-btn>
+    <template #activator="{ props: activatorProps }">
+      <v-btn v-bind="activatorProps">Contact</v-btn>
     </template>
 
     <v-btn
