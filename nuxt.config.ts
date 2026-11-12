@@ -73,21 +73,10 @@ export default defineNuxtConfig({
       },
     },
   },
-  i18n: {
-    locales: [
-      {
-        code: 'en',
-        language: 'en-US',
-        file: 'en.json',
-      },
-    ],
-    defaultLocale: 'en',
-  },
   modules: [
     '@nuxt/fonts',
     'vuetify-nuxt-module',
     '@nuxt/eslint',
-    '@nuxtjs/i18n',
     '@nuxt/test-utils/module',
   ],
   postcss: {
