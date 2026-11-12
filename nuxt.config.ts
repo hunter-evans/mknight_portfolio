@@ -74,8 +74,14 @@ export default defineNuxtConfig({
     },
   },
   i18n: {
+    locales: [
+      {
+        code: 'en',
+        language: 'en-US',
+        file: 'en.json',
+      },
+    ],
     defaultLocale: 'en',
-    vueI18n: './i18n.config.ts',
   },
   modules: [
     '@nuxt/fonts',
