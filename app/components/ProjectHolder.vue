@@ -61,7 +61,7 @@
     >
       <iframe
         :id="inputProps.project.name + n"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="picture-in-picture"
         allowfullscreen
         frameborder="0"
         :height="inputProps.project.category === 'award' ? '89%' : '100%'"
