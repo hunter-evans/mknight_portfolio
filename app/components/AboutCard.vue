@@ -28,7 +28,7 @@
 		</v-card-actions>
 	</v-card>
 	<EmailDialog 
-		:open-dialog="emailDialog"
+    v-model="emailDialog"
 		@close-dialog="emailDialog = false"
 		@success-snack="successSnackbar = true"
 		@fail-snack="handleFailure"
