@@ -61,5 +61,13 @@
 		"playlist": false,
 		"id": "1xVQ1LUhhRYS1B4ihm0D0BsTdEg9RD34u",
 		"description": "Trude The Bumblebee. Performed by the Don Camillo Choir. (Courtesy of the Cambridge Mixing Secrets Library)"
+	},
+	{
+		"name": "Instrumental26Concert",
+		"category": "wmgso",
+		"platform": "YouTube",
+		"playlist": true,
+		"singleQuery": true,
+		"id": "PLZpgJ1SUFm4w"
 	}
 ]
