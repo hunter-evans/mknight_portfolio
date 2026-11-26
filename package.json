@@ -17,7 +17,6 @@
   "dependencies": {
     "@emailjs/browser": "^5.0.3",
     "@mdi/font": "7.4.47",
-    "@nuxt/test-utils": "^4.4.0",
     "glob": "^14.0.6",
     "nuxt": "^4.5.1",
     "vuetify": "^4.1.6",
@@ -26,6 +25,7 @@
   "devDependencies": {
     "@nuxt/eslint": "^1.16.0",
     "@nuxt/fonts": "^1.2.1",
+    "@nuxt/test-utils": "^4.4.0",
     "@tailwindcss/postcss": "^4.3.5",
     "@vue/test-utils": "^2.6.0",
     "eslint": "^10.8.0",

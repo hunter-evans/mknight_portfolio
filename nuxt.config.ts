@@ -57,9 +57,6 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1',
     },
   },
-  build: {
-    transpile: ['vue', 'vue-router'],
-  },
   compatibilityDate: '2025-12-21',
   css: [
     'assets/styles/layers.css',
@@ -82,6 +79,9 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
   ],
   nitro: {
+    externals: {
+      external: ['@vue/compiler-core'],
+    },
     replace: {
       __VUE_OPTIONS_API__: false,
     },
@@ -114,9 +114,6 @@ export default defineNuxtConfig({
     },
     resolve: {
       dedupe: ['vue'],
-    },
-    ssr: {
-      noExternal: ['vue', 'vue-router'],
     },
   },
   vuetify: {
