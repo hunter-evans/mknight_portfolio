@@ -57,11 +57,13 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1',
     },
   },
+  build: {
+    transpile: ['vue', 'vue-router'],
+  },
   compatibilityDate: '2025-12-21',
   css: [
     'assets/styles/layers.css',
     'vuetify/styles',
-    'assets/styles/tailwind.css',
   ],
   devtools: {
     enabled: true,
@@ -79,9 +81,9 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/test-utils/module',
   ],
-  postcss: {
-    plugins: {
-      '@tailwindcss/postcss': {},
+  nitro: {
+    replace: {
+      __VUE_OPTIONS_API__: false,
     },
   },
   routeRules: {
@@ -97,10 +99,30 @@ export default defineNuxtConfig({
       EMAILJS_PRIVATE_KEY: process.env.EMAILJS_PRIVATE_KEY,
     },
   },
+  sourcemap: {
+    server: false,
+    client: false,
+  },
+  vite: {
+    define: {
+      __VUE_OPTIONS_API__: false,
+    },
+    dev: {
+      sourcemap: {
+        css: true,
+      },
+    },
+    resolve: {
+      dedupe: ['vue'],
+    },
+    ssr: {
+      noExternal: ['vue', 'vue-router'],
+    },
+  },
   vuetify: {
     moduleOptions: {
       disableVuetifyStyles: true,
-      prefixComposables: true,
+      prefixComposables: ['useLayout'],
       styles: {
         configFile: 'assets/styles/settings.scss',
       },
@@ -134,14 +156,6 @@ export default defineNuxtConfig({
           xxl: 2560,
         },
       },
-    },
-  },
-  vite: {
-    optimizeDeps: {
-      include: [
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-      ],
     },
   },
 })

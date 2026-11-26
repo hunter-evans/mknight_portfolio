@@ -9,28 +9,31 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:nuxt": "vitest --project nuxt"
   },
   "dependencies": {
     "@emailjs/browser": "^5.0.3",
     "@mdi/font": "7.4.47",
     "@nuxt/test-utils": "^4.4.0",
-    "glob": "^14.0.4",
+    "glob": "^14.0.6",
     "nuxt": "^4.5.1",
-    "vue": "^3.5.40",
     "vuetify": "^4.1.6",
     "vuetify-nuxt-module": "^1.0.0-rc.3"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.16.0",
-    "@nuxt/fonts": "^1.2.0",
-    "@tailwindcss/postcss": "^4.3.3",
+    "@nuxt/fonts": "^1.2.1",
+    "@tailwindcss/postcss": "^4.3.5",
+    "@vue/test-utils": "^2.6.0",
     "eslint": "^10.8.0",
     "eslint-config-vuetify": "^4.7.2",
+    "happy-dom": "^21.0.4",
     "playwright-core": "^1.62.0",
     "sass": "^1.102.0",
-    "tailwindcss": "^4.3.3",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.2"
   },
   "allowScripts": {
     "@parcel/watcher@2.6.0": true,
@@ -41,6 +44,8 @@
   },
   "overrides": {
     "brace-expansion": "^5.0.8",
-    "esbuild": "^0.28.1"
+    "esbuild": "^0.28.1",
+    "glob": "^14.0.6",
+    "minimatch": "^11.0.1"
   }
 }
